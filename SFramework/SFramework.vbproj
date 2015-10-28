@@ -45,6 +45,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -61,7 +63,27 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.vb" />
+    <Compile Include="Framework\API\KERNEL32.vb" />
+    <Compile Include="Framework\API\Proc.vb" />
+    <Compile Include="Framework\API\Struct.vb" />
+    <Compile Include="Framework\API\USER32.vb" />
+    <Compile Include="Framework\Assembly\AssemblyResource.vb" />
+    <Compile Include="Framework\Drawing\SGraphics.vb" />
+    <Compile Include="Framework\Hook\BaseHooker.vb" />
+    <Compile Include="Framework\Info.vb" />
+    <Compile Include="Framework\Interfaces\IHooker.vb" />
+    <Compile Include="Framework\Interfaces\ISControl.vb" />
+    <Compile Include="Framework\Interfaces\IVersion.vb" />
+    <Compile Include="Framework\Windows\Winform\Animation\DynamicAnimation.vb" />
+    <Compile Include="Framework\Windows\Winform\UI\Filter.vb" />
+    <Compile Include="Framework\Windows\Winform\UI\WindowHook.vb" />
+    <Compile Include="Framework\Windows\Winform\UI\Skin\ColorPreset.vb" />
+    <Compile Include="Framework\Windows\Winform\UI\Skin\EventRectangle.vb" />
+    <Compile Include="Framework\Windows\Winform\UI\Skin\Interfaces\IFormSkin.vb" />
+    <Compile Include="Framework\Windows\Winform\UI\Skin\MouseEvent.vb" />
+    <Compile Include="Framework\Windows\Winform\UI\Skin\Windows10\Windows10.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -79,6 +101,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Framework\Windows\Winform\UI\Skin\Windows10\Windows10.resx">
+      <DependentUpon>Windows10.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -96,6 +121,19 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Framework\Windows\Winform\UI\Skin\Windows10\Resources\close_off_normal.png" />
+    <EmbeddedResource Include="Framework\Windows\Winform\UI\Skin\Windows10\Resources\close_off_over.png" />
+    <EmbeddedResource Include="Framework\Windows\Winform\UI\Skin\Windows10\Resources\close_on_normal.png" />
+    <EmbeddedResource Include="Framework\Windows\Winform\UI\Skin\Windows10\Resources\close_on_over.png" />
+    <EmbeddedResource Include="Framework\Windows\Winform\UI\Skin\Windows10\Resources\maximize_off_normal.png" />
+    <EmbeddedResource Include="Framework\Windows\Winform\UI\Skin\Windows10\Resources\maximize_on_normal.png" />
+    <EmbeddedResource Include="Framework\Windows\Winform\UI\Skin\Windows10\Resources\minimize_off_normal.png" />
+    <EmbeddedResource Include="Framework\Windows\Winform\UI\Skin\Windows10\Resources\minimize_on_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Framework\Windows\WPF\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
