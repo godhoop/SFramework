@@ -1,6 +1,6 @@
 ﻿Public Class Info
     Public Shared ReadOnly Since As New Date(2015, 10, 26)
-    Public Shared ReadOnly LastUpdate As New Date(2015, 10, 26)
+    Public Shared ReadOnly LastUpdate As New Date(2015, 11 02
 
     Public Const Name As String = "Steal"
     Public Const Naver As String = "dmsud12156@naver.com"
