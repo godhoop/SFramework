@@ -217,37 +217,40 @@ Namespace Drawing
         Public Sub DrawImage(img As Bitmap, location As PointF, Optional rotate As Double = 0F, Optional opacity As Double = 1.0F)
             If img Is Nothing Then Return
 
-            Dim hw As Double = img.Width / 2.0F
-            Dim hh As Double = img.Height / 2.0F
+            Try
+                Dim hw As Double = img.Width / 2.0F
+                Dim hh As Double = img.Height / 2.0F
 
-            If rotate <> 0 Then
-                _g.TranslateTransform(hw + location.X, hh + location.Y)
-                _g.RotateTransform(rotate)
-                _g.TranslateTransform(-hw, -hh)
-            End If
-
-            If img.HorizontalResolution <> _g.DpiX Or
-                img.VerticalResolution <> _g.DpiY Then
-                img.SetResolution(_g.DpiX, _g.DpiY)
-            End If
-
-            If opacity < 1.0F Then
-                Using iAttr As New ImageAttributes
-                    Dim cm As New ColorMatrix
-
-                    cm.Matrix33 = opacity
-                    iAttr.SetColorMatrix(cm)
-
-                    _g.DrawImage(img, New Rectangle(New Point(location.X, location.Y), img.Size), 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, iAttr)
-                End Using
-            Else
                 If rotate <> 0 Then
-                    _g.DrawImage(img, Point.Empty)
-                    _g.ResetTransform()
-                Else
-                    _g.DrawImage(img, location)
+                    _g.TranslateTransform(hw + location.X, hh + location.Y)
+                    _g.RotateTransform(rotate)
+                    _g.TranslateTransform(-hw, -hh)
                 End If
-            End If
+
+                If img.HorizontalResolution <> _g.DpiX Or
+                    img.VerticalResolution <> _g.DpiY Then
+                    img.SetResolution(_g.DpiX, _g.DpiY)
+                End If
+
+                If opacity < 1.0F Then
+                    Using iAttr As New ImageAttributes
+                        Dim cm As New ColorMatrix
+
+                        cm.Matrix33 = opacity
+                        iAttr.SetColorMatrix(cm)
+
+                        _g.DrawImage(img, New Rectangle(New Point(location.X, location.Y), img.Size), 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, iAttr)
+                    End Using
+                Else
+                    If rotate <> 0 Then
+                        _g.DrawImage(img, Point.Empty)
+                        _g.ResetTransform()
+                    Else
+                        _g.DrawImage(img, location)
+                    End If
+                End If
+            Catch
+            End Try
         End Sub
 
         Public Sub DrawString(text As String, font As Font, color As Color, location As PointF)

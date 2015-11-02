@@ -15,7 +15,9 @@ Namespace Windows.Winform.UI
 
         Protected Overrides Sub WndProc(ByRef m As Message)
             For Each f As Filter In Filters
-                f.OnProc(m)
+                If f.OnProc(m) Then
+                    Return
+                End If
             Next
 
             MyBase.WndProc(m)

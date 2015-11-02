@@ -3,6 +3,13 @@ Imports System.Runtime.InteropServices
 
 Namespace API
     Public MustInherit Class Struct
+        <StructLayout(LayoutKind.Sequential)>
+        Structure MARGINS
+            Public leftWidth As Integer
+            Public rightWidth As Integer
+            Public topHeight As Integer
+            Public bottomHeight As Integer
+        End Structure
 
         <StructLayout(LayoutKind.Sequential)>
         Structure NCCALCSIZE_PARAMS
