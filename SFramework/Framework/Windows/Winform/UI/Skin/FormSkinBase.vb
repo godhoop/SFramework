@@ -25,6 +25,8 @@ Namespace Windows.Winform.UI.Skin
         ' - Aero
         Private _useAeroSnap As Boolean = False
 
+        Private _useResize As Boolean = True
+
         ' - Titlebar
         Protected WithEvents _
             Titlebar_Area As MouseCaptureControl,
@@ -64,6 +66,18 @@ Namespace Windows.Winform.UI.Skin
             End Get
             Set(value As Boolean)
                 _useAeroSnap = value
+            End Set
+        End Property
+
+        <Category("동작")>
+        <Description("폼 크기를 변경여부를 가져오거나 설정합니다.")>
+        Public Property UseResize As Boolean
+            Get
+                Return _useResize
+            End Get
+            Set(value As Boolean)
+                _useResize = value
+                Me.Invalidate()
             End Set
         End Property
 
@@ -112,18 +126,6 @@ Namespace Windows.Winform.UI.Skin
             End Get
         End Property
 #End Region
-
-        Private Shared Function GetFlags(input As [Enum]) As IEnumerable(Of [Enum])
-            Dim lst As New List(Of [Enum])
-
-            For Each value As [Enum] In [Enum].GetValues(input.[GetType]())
-                If input.HasFlag(value) Then
-                    lst.Add(value)
-                End If
-            Next
-
-            Return lst
-        End Function
 
 #Region " [ 초기화 ] "
         Private Sub FormSkinBase_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -472,6 +474,11 @@ Namespace Windows.Winform.UI.Skin
 
         <Description("스킨 구성요소를 재배치합니다.")>
         Protected Overridable Sub UpdateLayout()
+            ' 활성화 설정
+            Titlebar_Maximize.IsEnabled = ParentWindow.MaximizeBox
+            Titlebar_Minimize.IsEnabled = ParentWindow.MinimizeBox
+
+            ' 크기 조정
             Titlebar_Area.EventRect.Height = If(IsMaximized, 23, 30)
 
             Titlebar_Close.EventRect.Height = Titlebar_Area.Rect.Height - If(IsMaximized, 2, 1)
@@ -482,7 +489,11 @@ Namespace Windows.Winform.UI.Skin
             Titlebar_Maximize.EventRect.X = Titlebar_Close.Rect.X - Titlebar_Maximize.Rect.Width - 1
             Titlebar_Minimize.EventRect.X = Titlebar_Maximize.Rect.X - Titlebar_Minimize.Rect.Width - 1
 
-            Titlebar_Area.EventRect.Width = Titlebar_Minimize.Rect.X - 1
+            If Not (Titlebar_Maximize.IsEnabled Or Titlebar_Minimize.IsEnabled) Then
+                Titlebar_Area.EventRect.Width = Titlebar_Close.Rect.X - 1
+            Else
+                Titlebar_Area.EventRect.Width = Titlebar_Minimize.Rect.X - 1
+            End If
 
             Titlebar_Close.EventRect.Y = DrawingPoint.Y
             Titlebar_Maximize.EventRect.Y = DrawingPoint.Y
@@ -493,7 +504,7 @@ Namespace Windows.Winform.UI.Skin
 
             Resizers.ForEach(
                 Sub(er As MouseCaptureControl)
-                    er.IsEnabled = Not IsMaximized
+                    er.IsEnabled = If(UseResize, Not IsMaximized, False)
                 End Sub)
         End Sub
 

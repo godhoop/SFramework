@@ -157,8 +157,19 @@ Namespace Windows.Winform.UI.Skin
             End If
 
             sg.DrawImage(bufClose, Titlebar_Close.Rect.Location, 0, btnOpac)
-            sg.DrawImage(bufMaximize, Titlebar_Maximize.Rect.Location, 0, btnOpac)
-            sg.DrawImage(bufMinimize, Titlebar_Minimize.Rect.Location, 0, btnOpac)
+
+            Dim mxOpc As Single = btnOpac
+            Dim miOpc As Single = btnOpac
+
+            If Titlebar_Minimize.IsEnabled Then
+                If Not Titlebar_Maximize.IsEnabled Then mxOpc = DeactivateOpacity
+            Else
+                miOpc = If(Titlebar_Maximize.IsEnabled, DeactivateOpacity, 0)
+                mxOpc = If(Titlebar_Maximize.IsEnabled, mxOpc, 0)
+            End If
+
+            sg.DrawImage(bufMaximize, Titlebar_Maximize.Rect.Location, 0, mxOpc)
+            sg.DrawImage(bufMinimize, Titlebar_Minimize.Rect.Location, 0, miOpc)
 
             ' < Title Icon >
             If ParentWindow.ShowIcon Then
