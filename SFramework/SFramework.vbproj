@@ -69,6 +69,8 @@
     <Compile Include="Framework\API\Struct.vb" />
     <Compile Include="Framework\API\USER32.vb" />
     <Compile Include="Framework\Assembly\AssemblyResource.vb" />
+    <Compile Include="Framework\Assembly\Enum\LoadResult.vb" />
+    <Compile Include="Framework\Assembly\LibraryLoader.vb" />
     <Compile Include="Framework\Control\VirtualControlBase.vb" />
     <Compile Include="Framework\Control\VirtualControlCollection.vb" />
     <Compile Include="Framework\Drawing\SGraphics.vb" />
@@ -78,6 +80,10 @@
     <Compile Include="Framework\Interfaces\ISControl.vb" />
     <Compile Include="Framework\Interfaces\IVersion.vb" />
     <Compile Include="Framework\Interfaces\IVirtualControl.vb" />
+    <Compile Include="Framework\Math\SMath.vb" />
+    <Compile Include="Framework\Net\TCP\STCPClient.vb" />
+    <Compile Include="Framework\Net\TCP\STCPService.vb" />
+    <Compile Include="Framework\Net\TCP\STCPToken.vb" />
     <Compile Include="Framework\Windows\Winform\Animation\DynamicAnimation.vb" />
     <Compile Include="Framework\Windows\Winform\UI\Filter.vb" />
     <Compile Include="Framework\Windows\Winform\UI\Skin\Enum\MouseState.vb" />
@@ -142,6 +148,7 @@
     <EmbeddedResource Include="Framework\Windows\Winform\UI\Skin\Windows10\Resources\minimize_on_normal.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Framework\Net\UDP\" />
     <Folder Include="Framework\Windows\WPF\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

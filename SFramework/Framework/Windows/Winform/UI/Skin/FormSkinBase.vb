@@ -34,10 +34,6 @@ Namespace Windows.Winform.UI.Skin
             Titlebar_Maximize As MouseCaptureControl,
             Titlebar_Minimize As MouseCaptureControl
 
-        Protected Titlebar_Close_State As MouseState = MouseState.None
-        Protected Titlebar_Maximize_State As MouseState = MouseState.None
-        Protected Titlebar_Minimize_State As MouseState = MouseState.None
-
         ' - Resize
         Protected Resizers As VirtualControlCollection
         Protected WithEvents _
@@ -83,6 +79,7 @@ Namespace Windows.Winform.UI.Skin
 
         '! 퇴화 속성
         Private Property IsEnabled As Boolean Implements IVirtualControl.IsEnabled
+        Private Property MouseState As MouseState Implements IVirtualControl.MouseState
 
         Protected ReadOnly Property ParentWindow As Form
             Get
@@ -152,6 +149,8 @@ Namespace Windows.Winform.UI.Skin
                                          Struct.WindowStyles.WS_SIZEFRAME Or
                                          Struct.WindowStyles.WS_SYSMENU)
                 End If
+
+                Me.SendToBack()
 
                 _isInited = True
             Else
@@ -261,21 +260,30 @@ Namespace Windows.Winform.UI.Skin
             Dim mRct As New Rectangle(e.X, e.Y, 1, 1)
             Dim isRaised As Boolean = False
 
-            For Each er As EventRectangle In Childs.Where(Function(mc As MouseCaptureControl) mc.IsEnabled AndAlso mc.Rect.IntersectsWith(mRct)).
-                                                    Select(Function(mc As MouseCaptureControl) mc.EventRect)
+            For Each mcc As MouseCaptureControl In Childs.Where(Function(mc As MouseCaptureControl) mc.IsEnabled AndAlso mc.Rect.IntersectsWith(mRct))
                 If LastEvent IsNot Nothing AndAlso
-                        Not LastEvent.Equals(er) Then
+                        Not LastEvent.Equals(mcc.EventRect) Then
 
-                    er.Handler.Invoke(e, MouseEvent.Enter)
+                    mcc.EventRect.Handler.Invoke(e, MouseEvent.Enter)
                     LastEvent.Handler.Invoke(e, MouseEvent.Leave)
                 End If
 
                 If LastEvent Is Nothing Then
-                    er.Handler.Invoke(e, MouseEvent.Enter)
+                    mcc.EventRect.Handler.Invoke(e, MouseEvent.Enter)
                 End If
 
-                er.Handler.Invoke(e, state)
-                LastEvent = er
+                Dim raise As Boolean = True
+
+                If state = MouseEvent.Up Then
+                    If Not mcc.MouseState = MouseState.Down Then
+                        raise = False
+                    End If
+                End If
+
+                If raise Then
+                    mcc.EventRect.Handler.Invoke(e, state)
+                    LastEvent = mcc.EventRect
+                End If
 
                 isRaised = True
 
@@ -306,8 +314,8 @@ Namespace Windows.Winform.UI.Skin
                     state = MouseState.Down
             End Select
 
-            If state <> Titlebar_Minimize_State Then
-                Titlebar_Close_State = state
+            If state <> Titlebar_Minimize.MouseState Then
+                Titlebar_Close.MouseState = state
                 Me.Invalidate()
             End If
         End Sub
@@ -326,8 +334,8 @@ Namespace Windows.Winform.UI.Skin
                     state = MouseState.Down
             End Select
 
-            If state <> Titlebar_Minimize_State Then
-                Titlebar_Maximize_State = state
+            If state <> Titlebar_Minimize.MouseState Then
+                Titlebar_Maximize.MouseState = state
                 Me.Invalidate()
             End If
         End Sub
@@ -346,8 +354,8 @@ Namespace Windows.Winform.UI.Skin
                     state = MouseState.Down
             End Select
 
-            If state <> Titlebar_Minimize_State Then
-                Titlebar_Minimize_State = state
+            If state <> Titlebar_Minimize.MouseState Then
+                Titlebar_Minimize.MouseState = state
                 Me.Invalidate()
             End If
         End Sub
@@ -613,15 +621,15 @@ Namespace Windows.Winform.UI.Skin
 
 #Region " [ Function ] "
         Private Sub ResetTitlebarMouseState()
-            Titlebar_Maximize_State = MouseState.None
-            Titlebar_Minimize_State = MouseState.None
-            Titlebar_Close_State = MouseState.None
+            Titlebar_Maximize.MouseState = MouseState.None
+            Titlebar_Minimize.MouseState = MouseState.None
+            Titlebar_Close.MouseState = MouseState.None
 
             Me.Invalidate()
         End Sub
 
         Protected Function LoadResource(Of T)(path As String) As T
-            Return Assembly.AssemblyResource.GetData(Of T)(path)
+            Return SAssembly.AssemblyResource.GetData(Of T)(path)
         End Function
 #End Region
 

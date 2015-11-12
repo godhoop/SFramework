@@ -138,19 +138,19 @@ Namespace Windows.Winform.UI.Skin
                 bufMaximize = img_Maximize_off
             End If
 
-            If Titlebar_Close_State <> MouseState.Down Then
+            If Titlebar_Close.MouseState <> MouseState.Down Then
                 sg.FillRectangle(_closeBack_Opacity.Color, Titlebar_Close.Rect)
             Else
                 sg.FillRectangle(Color.FromArgb(241, 112, 122), Titlebar_Close.Rect)
             End If
 
-            If Titlebar_Minimize_State <> MouseState.Down Then
+            If Titlebar_Minimize.MouseState <> MouseState.Down Then
                 sg.FillRectangle(_minimizeBack_Opacity.Color, Titlebar_Minimize.Rect)
             Else
                 sg.FillRectangle(Color.FromArgb(204, 204, 204), Titlebar_Minimize.Rect)
             End If
 
-            If Titlebar_Maximize_State <> MouseState.Down Then
+            If Titlebar_Maximize.MouseState <> MouseState.Down Then
                 sg.FillRectangle(_maximizeBack_Opacity.Color, Titlebar_Maximize.Rect)
             Else
                 sg.FillRectangle(Color.FromArgb(204,204,204), Titlebar_Maximize.Rect)
