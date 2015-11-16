@@ -1,4 +1,6 @@
-﻿Namespace Net
+﻿Imports System.Text
+
+Namespace Net
     Public Interface IServer
         Event Connected(sender As Object, session As IClient)
         Event Disconnected(sender As Object, session As IClient)
@@ -13,7 +15,7 @@
         ReadOnly Property BufferSize As Integer
 
         Sub Start(port As Integer)
-        Sub Send(session As IClient, packet() As Byte)
         Sub BroadCast(packet() As Byte)
+        Sub BroadCast(message As String, Optional encoding As Encoding = Nothing)
     End Interface
 End Namespace

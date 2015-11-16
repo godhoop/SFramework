@@ -1,5 +1,5 @@
 ﻿Imports System.Net.Sockets
-Imports SFramework.Net.TCP
+Imports SFramework.Net.Sockets.TCP
 
 Namespace Net.Sockets
     Public Class TCPService

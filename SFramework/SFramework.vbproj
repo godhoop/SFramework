@@ -83,6 +83,7 @@
     <Compile Include="Framework\Math\SMath.vb" />
     <Compile Include="Framework\Net\ClientState.vb" />
     <Compile Include="Framework\Net\Interface\IClient.vb" />
+    <Compile Include="Framework\Net\Interface\IFileTransfer.vb" />
     <Compile Include="Framework\Net\Interface\IServer.vb" />
     <Compile Include="Framework\Net\Async\TCP\AsyncClient.vb" />
     <Compile Include="Framework\Net\Async\TCP\AsyncServer.vb" />
@@ -92,6 +93,7 @@
     <Compile Include="Framework\Net\SessionIDManager.vb" />
     <Compile Include="Framework\Net\Sockets\TCPService.vb" />
     <Compile Include="Framework\Net\Sockets\TCPServiceType.vb" />
+    <Compile Include="Framework\Text\SText.vb" />
     <Compile Include="Framework\Windows\Winform\Animation\DynamicAnimation.vb" />
     <Compile Include="Framework\Windows\Winform\UI\Filter.vb" />
     <Compile Include="Framework\Windows\Winform\UI\Skin\Enum\MouseState.vb" />

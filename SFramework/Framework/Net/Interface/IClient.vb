@@ -1,4 +1,5 @@
 ﻿Imports System.Net.Sockets
+Imports System.Text
 
 Namespace Net
     Public Interface IClient
@@ -13,6 +14,7 @@ Namespace Net
         ReadOnly Property IsConnected As Boolean
 
         Sub Send(packet() As Byte)
+        Sub Send(message As String, Optional encoding As Encoding = Nothing)
         Sub Close()
     End Interface
 End Namespace
