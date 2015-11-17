@@ -81,13 +81,13 @@
     <Compile Include="Framework\Interfaces\IVersion.vb" />
     <Compile Include="Framework\Interfaces\IVirtualControl.vb" />
     <Compile Include="Framework\Math\SMath.vb" />
+    <Compile Include="Framework\Net\Async\TCP\AsyncClient.vb" />
+    <Compile Include="Framework\Net\Async\TCP\AsyncServer.vb" />
     <Compile Include="Framework\Net\TCP\FileTransfer.vb" />
     <Compile Include="Framework\Net\ClientState.vb" />
     <Compile Include="Framework\Net\Interface\IClient.vb" />
     <Compile Include="Framework\Net\Interface\IFileTransfer.vb" />
     <Compile Include="Framework\Net\Interface\IServer.vb" />
-    <Compile Include="Framework\Net\Async\TCP\AsyncClient.vb" />
-    <Compile Include="Framework\Net\Async\TCP\AsyncServer.vb" />
     <Compile Include="Framework\Net\Interface\IService.vb" />
     <Compile Include="Framework\Net\Packet.vb" />
     <Compile Include="Framework\Net\Events\AcceptEventArgs.vb" />
