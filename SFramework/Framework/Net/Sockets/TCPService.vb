@@ -59,6 +59,10 @@ Namespace Net.Sockets
             Server.Start(port)
         End Sub
 
+        Public Sub [Stop]()
+
+        End Sub
+
         Protected Overridable Sub OnAccept(sender As Object, e As AcceptEventArgs) Handles _Server.PreviewAccept
             e.Accept = (SessionLimit = 0 Or Server.Sessions.Count < SessionLimit)
         End Sub

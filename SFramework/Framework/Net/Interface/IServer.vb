@@ -14,6 +14,7 @@ Namespace Net
         ReadOnly Property Socket As System.Net.Sockets.Socket
         ReadOnly Property BufferSize As Integer
 
+        Sub [Stop]()
         Sub Start(port As Integer)
         Sub BroadCast(packet() As Byte)
         Sub BroadCast(message As String, Optional encoding As Encoding = Nothing)

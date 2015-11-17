@@ -1,4 +1,5 @@
-﻿Imports System.Net.Sockets
+﻿Imports System.Net
+Imports System.Net.Sockets
 Imports System.Text
 
 Namespace Net
@@ -11,6 +12,7 @@ Namespace Net
         ReadOnly Property SessionID As String
         ReadOnly Property State As ClientState
         ReadOnly Property IP As String
+        ReadOnly Property RemoteEndPoint As IPEndPoint
         ReadOnly Property IsConnected As Boolean
 
         Sub Send(packet() As Byte)
